@@ -1,3 +1,5 @@
+
+
 from dao.model.movie import Movie
 
 
@@ -8,7 +10,7 @@ class MovieDAO:
     def get_one(self, bid):
         return self.session.query(Movie).get(bid)
 
-    def get_all(self):
+    # def get_all(self):
         # А еще можно сделать так, вместо всех методов get_by_*
         # t = self.session.query(Movie)
         # if "director_id" in filters:
@@ -18,6 +20,9 @@ class MovieDAO:
         # if "year" in filters:
         #     t = t.filter(Movie.year == filters.get("year"))
         # return t.all()
+        # return self.session.query(Movie).all()
+
+    def get_all(self):
         return self.session.query(Movie).all()
 
     def get_by_director_id(self, val):
