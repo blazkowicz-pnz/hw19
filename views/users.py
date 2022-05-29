@@ -5,7 +5,6 @@ from dao.model.user import UserSchema
 
 ns_user = Namespace("users")
 
-
 @ns_user.route("/")
 class UsersView(Resource):
     def get(self):
