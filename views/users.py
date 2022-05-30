@@ -8,12 +8,13 @@ ns_user = Namespace("users")
 
 @ns_user.route("/")
 class UsersView(Resource):
-    @auth_required
+    # @auth_required
     def get(self):
         all_users = user_service.get_all()
         result = UserSchema(many=True).dump(all_users)
         return result, 200
 
+    @admin_access_required
     def post(self):
         req_data = request.json
         user = user_service.create(req_data)
@@ -27,18 +28,21 @@ class UserView(Resource):
         user = user_service.get_one(uid)
         return UserSchema().dump(user), 200
 
+    @admin_access_required
     def put(self, uid):
         req_data = request.json
         req_data["id"] = uid
         user_service.update(req_data)
         return "", 204
 
+    @admin_access_required
     def patch(self, uid):
         req_data = request.json
         req_data["id"] = uid
         user_service.update(req_data)
         return "", 204
 
+    @admin_access_required
     def delete(self, uid):
         user_service.delete(uid)
         return "", 204
