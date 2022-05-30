@@ -2,11 +2,13 @@ from flask import request
 from flask_restx import Resource, Namespace
 from implemented import user_service
 from dao.model.user import UserSchema
+from utils import auth_required, admin_access_required
 
 ns_user = Namespace("users")
 
 @ns_user.route("/")
 class UsersView(Resource):
+    @auth_required
     def get(self):
         all_users = user_service.get_all()
         result = UserSchema(many=True).dump(all_users)
@@ -20,10 +22,10 @@ class UsersView(Resource):
 
 @ns_user.route("/<int:uid>")
 class UserView(Resource):
+    @auth_required
     def get(self, uid):
         user = user_service.get_one(uid)
         return UserSchema().dump(user), 200
-
 
     def put(self, uid):
         req_data = request.json

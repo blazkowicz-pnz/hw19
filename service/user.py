@@ -1,8 +1,5 @@
-import hmac
 from dao.user import UserDao
 from utils import get_hash_from_password
-import hashlib, base64
-from config import Config
 
 
 class UserService:
