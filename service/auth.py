@@ -13,13 +13,13 @@ class AuthService:
             abort(401, message="user not found")
 
         hashed_password = get_hash_from_password(data["password"])
-        if user_data["password"] != hashed_password:
-            abort(401, message="Invalid credentials")
+        if user_data.password != hashed_password:
+            abort(401, message=f"Invalid credentials{hashed_password} -- {user_data.password}", )
 
         tokens = generate_tokens(
             {
-                "username": data["username"],
-                "role": user_data["role"]
+                "username": user_data.username,
+                "role": user_data.role
             }
         )
         return tokens

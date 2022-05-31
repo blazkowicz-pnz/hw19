@@ -33,7 +33,7 @@ def register_extensions(app):
 def create_data(app, db):
     with app.app_context():
         db.create_all()
-        u3 = User(username="ivan", password="password", role="admin")
+        u3 = User(username="i", password="password", role="admin")
         with db.session.begin():
             db.session.add(u3)
 
@@ -43,4 +43,4 @@ app.debug = True
 
 
 if __name__ == '__main__':
-    app.run(host="localhost", port=10001, debug=True)
+    app.run(host="localhost", port=5000, debug=True)

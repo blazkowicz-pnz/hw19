@@ -1,9 +1,10 @@
 import hashlib, base64
 import json
 
+import jwt
+
 from config import Config
 from datetime import datetime, timedelta
-import jwt
 from flask import request, current_app
 from flask_restx import abort
 from dao.auth import AuthDao
@@ -75,8 +76,8 @@ def auth_required(func):
         token = get_token_from_headers(request.headers)
         decoded_token = decode_token(token)
 
-        # if not auth_dao.get_by_username(decoded_token["username"]):
-        #     abort(401)
+        if not auth_dao.get_by_username(decoded_token["username"]):
+            abort(401)
 
         return func(*args, **kwargs)
 
@@ -90,8 +91,8 @@ def admin_access_required(func):
         if decoded_token["role"] != "admin":
             abort(403)
 
-        # if not auth_dao.get_by_username(decoded_token["username"]):
-        #     abort(401)
+        if not auth_dao.get_by_username(decoded_token["username"]):
+            abort(401)
 
         return func(*args, **kwargs)
 
