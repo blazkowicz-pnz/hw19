@@ -24,7 +24,6 @@ class AuthService:
         )
         return tokens
 
-
     def get_new_tokens(self, refresh_token):
         decoded_token = decode_token(refresh_token, refresh_token=True)
         tokens = generate_tokens(
@@ -34,4 +33,3 @@ class AuthService:
             },
         )
         return tokens
-

@@ -5,7 +5,9 @@ from dao.model.user import UserSchema
 from implemented import user_service
 from utils import auth_required, admin_access_required
 
+
 ns_protected = Namespace("protected")
+
 
 @ns_protected.route("/users")
 class UsersView(Resource):

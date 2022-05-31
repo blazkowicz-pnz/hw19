@@ -14,7 +14,6 @@ class UserService:
 
     def create(self, user_data):
         user_data["password"] = get_hash_from_password(user_data.get("password"))
-
         return self.dao.create(user_data)
 
     def update(self, user_data):
@@ -26,14 +25,8 @@ class UserService:
         user.password = user_data.get("password")
         return self.dao.update(user)
 
-
     def delete(self, uid):
         return self.dao.delete(uid)
-
-
-
-
-
 
     # На всякий случай сравнение
     # def compare_pass(self, pass_hash, other_pass):
@@ -43,5 +36,3 @@ class UserService:
     #                                       SECRET_HERE,
     #                                       PWD_HASH_ITERATIONS)
     #     return hmac.compare_digest(decode_digest, hash_digest)
-
-

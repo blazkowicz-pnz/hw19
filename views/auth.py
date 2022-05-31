@@ -3,6 +3,7 @@ from flask import request
 from implemented import auth_service
 ns_auth = Namespace("auth")
 
+
 @ns_auth.route("/")
 class AuthView(Resource):
     def post(self):

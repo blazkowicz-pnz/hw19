@@ -1,4 +1,6 @@
 import hashlib, base64
+import json
+
 from config import Config
 from datetime import datetime, timedelta
 import jwt
@@ -8,6 +10,7 @@ from dao.auth import AuthDao
 
 
 auth_dao = AuthDao
+
 
 def get_hash_from_password(password):  # В методе по дз несколько иначе реализован
     hashed_password: bytes = hashlib.pbkdf2_hmac(
@@ -26,19 +29,21 @@ def generate_tokens(data):
     access_token = jwt.encode(payload=data,
                               key=Config.SECRET,
                               algorithm=Config.JWT_ALGORITHM
-    )
+                              )
 
     data["exp"] = datetime.utcnow() + timedelta(days=130)
     data["refresh_token"] = True
+
     refresh_token = jwt.encode(payload=data,
-                              key=Config.SECRET,
-                              algorithm=Config.JWT_ALGORITHM
-    )
+                               key=Config.SECRET,
+                               algorithm=Config.JWT_ALGORITHM
+                               )
 
     return {
         "access_token": access_token,
         "refresh_token": refresh_token
     }
+
 
 def get_token_from_headers(headers: dict):
     if "Authorization" not in request.headers:
@@ -47,7 +52,7 @@ def get_token_from_headers(headers: dict):
     return headers["Authorization"].split(" ")[-1]
 
 
-def decode_token(token:str, refresh_token: bool=False):
+def decode_token(token: str, refresh_token: bool = False):
     decoded_token = {}
     try:
         decoded_token = jwt.decode(
@@ -55,6 +60,7 @@ def decode_token(token:str, refresh_token: bool=False):
             key=Config.SECRET,
             algorithms=[Config.JWT_ALGORITHM]
         )
+
     except jwt.PyJWTError:
         current_app.logger.info("Got wrong token: '%s'", token)
         abort(401)
@@ -66,7 +72,6 @@ def decode_token(token:str, refresh_token: bool=False):
 
 def auth_required(func):
     def wrapper(*args, **kwargs):
-
         token = get_token_from_headers(request.headers)
         decoded_token = decode_token(token)
 
@@ -74,11 +79,12 @@ def auth_required(func):
         #     abort(401)
 
         return func(*args, **kwargs)
+
     return wrapper
+
 
 def admin_access_required(func):
     def wrapper(*args, **kwargs):
-
         token = get_token_from_headers(request.headers)
         decoded_token = decode_token(token)
         if decoded_token["role"] != "admin":

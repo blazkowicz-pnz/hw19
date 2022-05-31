@@ -5,6 +5,7 @@ from dao.model.movie import MovieSchema
 from implemented import movie_service
 from utils import admin_access_required, auth_required
 
+
 movie_ns = Namespace('movies')
 
 

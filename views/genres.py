@@ -4,6 +4,7 @@ from dao.model.genre import GenreSchema
 from implemented import genre_service
 from utils import auth_required, admin_access_required
 
+
 genre_ns = Namespace('genres')
 
 
@@ -16,7 +17,7 @@ class GenresView(Resource):
         return res, 200
 
     @admin_access_required
-    def post(self, data):
+    def post(self):
         req_data = request.json
         genre_service.create(req_data)
         return "", 201

@@ -1,5 +1,6 @@
 from dao.model.user import User
 
+
 class UserDao:
     def __init__(self, session):
         self.session = session
@@ -20,7 +21,6 @@ class UserDao:
         self.session.add(user)
         self.session.commit()
         return user
-
 
     def delete(self, uid):
         user = self.session.query(User).get(uid)

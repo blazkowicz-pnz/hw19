@@ -4,6 +4,7 @@ from dao.model.director import DirectorSchema
 from implemented import director_service
 from utils import auth_required, admin_access_required
 
+
 director_ns = Namespace('directors')
 
 

@@ -1,5 +1,3 @@
-
-
 from dao.model.movie import Movie
 
 
@@ -9,7 +7,6 @@ class MovieDAO:
 
     def get_one(self, bid):
         return self.session.query(Movie).get(bid)
-
     # def get_all(self):
         # А еще можно сделать так, вместо всех методов get_by_*
         # t = self.session.query(Movie)
@@ -54,6 +51,5 @@ class MovieDAO:
         movie.rating = movie_d.get("rating")
         movie.genre_id = movie_d.get("genre_id")
         movie.director_id = movie_d.get("director_id")
-
         self.session.add(movie)
         self.session.commit()

@@ -4,10 +4,13 @@ from implemented import user_service
 from dao.model.user import UserSchema
 from utils import auth_required, admin_access_required
 
+
 ns_user = Namespace("users")
+
 
 @ns_user.route("/")
 class UsersView(Resource):
+    # Закомментил для проверки
     # @auth_required
     def get(self):
         all_users = user_service.get_all()
