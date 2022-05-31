@@ -14,7 +14,7 @@ class AuthService:
 
         hashed_password = get_hash_from_password(data["password"])
         if user_data.password != hashed_password:
-            abort(401, message=f"Invalid credentials{hashed_password} -- {user_data.password}", )
+            abort(401, message="Invalid credentials", )
 
         tokens = generate_tokens(
             {

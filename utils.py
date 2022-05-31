@@ -1,6 +1,4 @@
 import hashlib, base64
-import json
-
 import jwt
 
 from config import Config
@@ -10,7 +8,7 @@ from flask_restx import abort
 from dao.auth import AuthDao
 
 
-auth_dao = AuthDao
+auth_dao = AuthDao()
 
 
 def get_hash_from_password(password):  # В методе по дз несколько иначе реализован
